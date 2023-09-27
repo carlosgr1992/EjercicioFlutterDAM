@@ -1,6 +1,8 @@
+
+
 import 'package:flutter/material.dart';
 
-class LoginView extends StatelessWidget {
+class RegisterView extends StatelessWidget{
 
   late BuildContext _context;
 
@@ -10,7 +12,7 @@ class LoginView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text("Registro"),
         centerTitle: true,
         backgroundColor: Colors.amberAccent,
       ),
@@ -19,7 +21,7 @@ class LoginView extends StatelessWidget {
         children: [
           SizedBox(height: 25),
           Text(
-            "Bienvenido al login",
+            "Registro nuevos usuarios",
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -31,7 +33,7 @@ class LoginView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextField(
               decoration: InputDecoration(
-                hintText: "Introduzca su usuario",
+                hintText: "Usuario",
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.amberAccent),
                 ),
@@ -43,34 +45,46 @@ class LoginView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextFormField(
               decoration: InputDecoration(
-                hintText: "Introduzca su contraseña",
+                hintText: "Contraseña",
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.amberAccent),
                 ),
               ),
-            obscureText: true,
+              obscureText: true,
             ),
           ),
-
+          SizedBox(height: 50),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50.0),
+            child: TextFormField(
+              decoration: InputDecoration(
+                hintText: "Repetir contraseña",
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.amberAccent),
+                ),
+              ),
+              obscureText: true,
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 80,),
               TextButton(onPressed: null,
                 style: ButtonStyle(
-                  side: MaterialStateProperty.all(BorderSide(color: Colors.amberAccent))
+                    side: MaterialStateProperty.all(BorderSide(color: Colors.amberAccent))
                 ),
-                child: Text("Login",
-                style: TextStyle(
-                  color: Colors.black
-                ),),),
+                child: Text("Registrarme",
+                  style: TextStyle(
+                      color: Colors.black
+                  ),),),
               SizedBox(width: 50,),
               TextButton(onPressed: null,
                   style: ButtonStyle(
                       side: MaterialStateProperty.all(BorderSide(color: Colors.amberAccent))
                   ),
-                  child: Text("Registrar",
-                  style: TextStyle(color: Colors.black),))
+                  child: Text("Cancelar",
+                    style: TextStyle(color: Colors.black),))
             ],
           )
         ],
