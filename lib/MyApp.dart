@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget{
         "/loginView": (context) => LoginView(),
         "/registerView": (context) => RegisterView(),
       },
-      initialRoute: "/registerView",
+      initialRoute: "/loginView",
     );
 
   }

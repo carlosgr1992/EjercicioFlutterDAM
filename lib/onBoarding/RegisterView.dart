@@ -79,7 +79,7 @@ class RegisterView extends StatelessWidget{
                       color: Colors.black
                   ),),),
               SizedBox(width: 50,),
-              TextButton(onPressed: null,
+              TextButton(onPressed: onClickCancelar,
                   style: ButtonStyle(
                       side: MaterialStateProperty.all(BorderSide(color: Colors.amberAccent))
                   ),
@@ -92,5 +92,9 @@ class RegisterView extends StatelessWidget{
     );
   }
 
+  void onClickCancelar(){
+
+    Navigator.of(_context).pushNamed("/loginView");
+  }
 
 }
