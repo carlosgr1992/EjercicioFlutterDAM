@@ -9,12 +9,31 @@ class LoginView extends StatelessWidget {
     _context = context;
 
     return Scaffold(
-      appBar: AppBar(title: Text("Login"), centerTitle: true),
-      body: Column(children: [
-        Text("Bienvenido al login"),
-        TextField(),
-        TextFormField()
-      ]),
+      appBar: AppBar(title: Text("Login"), centerTitle: true, backgroundColor: Colors.amberAccent,),
+      body: Column(
+        children: [
+          Text("Bienvenido al login",
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Colors.black
+          )),
+          TextField(
+            decoration: InputDecoration(
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.amberAccent),
+              ),
+            ),
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.amberAccent)
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
