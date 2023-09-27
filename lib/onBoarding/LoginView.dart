@@ -26,7 +26,7 @@ class LoginView extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          SizedBox(height: 120),  // Espacio entre el texto y las cajas
+          SizedBox(height: 120),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextField(
@@ -38,7 +38,7 @@ class LoginView extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 50),  // Espacio entre las cajas
+          SizedBox(height: 50),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextFormField(
@@ -50,6 +50,28 @@ class LoginView extends StatelessWidget {
               ),
             ),
           ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 80,),
+              TextButton(onPressed: null,
+                style: ButtonStyle(
+                  side: MaterialStateProperty.all(BorderSide(color: Colors.amberAccent))
+                ),
+                child: Text("Login",
+                style: TextStyle(
+                  color: Colors.black
+                ),),),
+              SizedBox(width: 50,),
+              TextButton(onPressed: null,
+                  style: ButtonStyle(
+                      side: MaterialStateProperty.all(BorderSide(color: Colors.amberAccent))
+                  ),
+                  child: Text("Registrar",
+                  style: TextStyle(color: Colors.black),))
+            ],
+          )
         ],
       ),
     );
