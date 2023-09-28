@@ -33,6 +33,8 @@ class RegisterView extends StatelessWidget{
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextField(
               decoration: InputDecoration(
+                fillColor: Color(0xFFFFE6A5),
+                filled: true,
                 hintText: "Usuario",
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.amberAccent),
@@ -45,6 +47,8 @@ class RegisterView extends StatelessWidget{
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextFormField(
               decoration: InputDecoration(
+                fillColor: Color(0xFFFFE6A5),
+                filled: true,
                 hintText: "Contraseña",
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.amberAccent),
@@ -58,6 +62,8 @@ class RegisterView extends StatelessWidget{
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextFormField(
               decoration: InputDecoration(
+                fillColor: Color(0xFFFFE6A5),
+                filled: true,
                 hintText: "Repetir contraseña",
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.amberAccent),

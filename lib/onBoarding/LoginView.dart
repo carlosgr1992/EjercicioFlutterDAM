@@ -31,6 +31,8 @@ class LoginView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextField(
               decoration: InputDecoration(
+                fillColor: Color(0xFFFFE6A5),
+                filled: true,
                 hintText: "Introduzca su usuario",
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.amberAccent),
@@ -43,6 +45,8 @@ class LoginView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextFormField(
               decoration: InputDecoration(
+                fillColor: Color(0xFFFFE6A5),
+                filled: true,
                 hintText: "Introduzca su contraseña",
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.amberAccent),
