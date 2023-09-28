@@ -6,6 +6,10 @@ class RegisterView extends StatelessWidget{
 
   late BuildContext _context;
 
+  final TextEditingController usuario = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  final TextEditingController repeatPassword = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     _context = context;
@@ -32,6 +36,7 @@ class RegisterView extends StatelessWidget{
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextField(
+              controller: usuario,
               decoration: InputDecoration(
                 fillColor: Color(0xFFFFE6A5),
                 filled: true,
@@ -46,6 +51,7 @@ class RegisterView extends StatelessWidget{
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextFormField(
+              controller: password,
               decoration: InputDecoration(
                 fillColor: Color(0xFFFFE6A5),
                 filled: true,
@@ -61,6 +67,7 @@ class RegisterView extends StatelessWidget{
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextFormField(
+              controller: repeatPassword,
               decoration: InputDecoration(
                 fillColor: Color(0xFFFFE6A5),
                 filled: true,

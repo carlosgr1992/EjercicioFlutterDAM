@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "114111536541",
+    "project_id": "ejercicioflutterdam",
+    "storage_bucket": "ejercicioflutterdam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:114111536541:android:13ee8cfba17b3ceeb92374",
+        "android_client_info": {
+          "package_name": "rf6.carlosgr.ejercicio_flutter_dam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH9Q0Te9qm80ikJDsHUOJkqGMqSxeT8cM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

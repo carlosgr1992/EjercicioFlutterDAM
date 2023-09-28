@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class LoginView extends StatelessWidget {
 
   late BuildContext _context;
+  final TextEditingController usuario = TextEditingController();
+  final TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class LoginView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextField(
+              controller: usuario,
               decoration: InputDecoration(
                 fillColor: Color(0xFFFFE6A5),
                 filled: true,
@@ -44,6 +47,7 @@ class LoginView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextFormField(
+              controller: password,
               decoration: InputDecoration(
                 fillColor: Color(0xFFFFE6A5),
                 filled: true,
