@@ -1,10 +1,7 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class RegisterView extends StatelessWidget{
-
+class RegisterView extends StatelessWidget {
   late BuildContext _context;
 
   final TextEditingController usuario = TextEditingController();
@@ -41,7 +38,7 @@ class RegisterView extends StatelessWidget{
               decoration: InputDecoration(
                 fillColor: Color(0xFFFFE6A5),
                 filled: true,
-                hintText: "Usuario",
+                hintText: "Correo electrónico",
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.amberAccent),
                 ),
@@ -83,22 +80,31 @@ class RegisterView extends StatelessWidget{
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 80,),
-              TextButton(onPressed: onClickAceptar,
+              SizedBox(
+                height: 80,
+              ),
+              TextButton(
+                onPressed: onClickAceptar,
                 style: ButtonStyle(
-                    side: MaterialStateProperty.all(BorderSide(color: Colors.amberAccent))
+                    side: MaterialStateProperty.all(
+                        BorderSide(color: Colors.amberAccent))),
+                child: Text(
+                  "Registrarme",
+                  style: TextStyle(color: Colors.black),
                 ),
-                child: Text("Registrarme",
-                  style: TextStyle(
-                      color: Colors.black
-                  ),),),
-              SizedBox(width: 50,),
-              TextButton(onPressed: onClickCancelar,
+              ),
+              SizedBox(
+                width: 50,
+              ),
+              TextButton(
+                  onPressed: onClickCancelar,
                   style: ButtonStyle(
-                      side: MaterialStateProperty.all(BorderSide(color: Colors.amberAccent))
-                  ),
-                  child: Text("Cancelar",
-                    style: TextStyle(color: Colors.black),))
+                      side: MaterialStateProperty.all(
+                          BorderSide(color: Colors.amberAccent))),
+                  child: Text(
+                    "Cancelar",
+                    style: TextStyle(color: Colors.black),
+                  ))
             ],
           )
         ],
@@ -106,12 +112,18 @@ class RegisterView extends StatelessWidget{
     );
   }
 
-  void onClickCancelar(){
-
+  void onClickCancelar() {
     Navigator.of(_context).pushNamed("/loginView");
   }
 
   void onClickAceptar() async {
+
+    if (usuario.text.isEmpty || password.text.isEmpty || repeatPassword.text.isEmpty) {
+      ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
+        content: Text("Por favor, rellena todos los campos"),
+        duration: Duration(seconds: 2),
+      ));
+    }
 
     if (password.text == repeatPassword.text) {
       try {
@@ -122,15 +134,26 @@ class RegisterView extends StatelessWidget{
         Navigator.of(_context).pushNamed("/loginView");
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
-          print('The password provided is too weak.');
+          ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
+            content: Text("Contraseña demasiado corta"),
+            duration: Duration(seconds: 2),
+          ));
         } else if (e.code == 'email-already-in-use') {
-          print('The account already exists for that email.');
+          ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
+            content: Text("La cuenta ya existe."),
+            duration: Duration(seconds: 2),
+          ));
         }
       } catch (e) {
         print(e);
       }
+    } else if (password.text != repeatPassword.text) {
+      ScaffoldMessenger.of(_context).showSnackBar(
+        SnackBar(
+          content: Text("Las contraseñas no coinciden"),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
-    //else
   }
-
 }
