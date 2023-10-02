@@ -2,6 +2,7 @@
 
 import 'package:ejercicio_flutter_dam/onBoarding/LoginView.dart';
 import 'package:ejercicio_flutter_dam/onBoarding/RegisterView.dart';
+import 'package:ejercicio_flutter_dam/splash/SplashApp.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget{
@@ -13,8 +14,9 @@ class MyApp extends StatelessWidget{
       routes: {
         "/loginView": (context) => LoginView(),
         "/registerView": (context) => RegisterView(),
+        "/splashView": (context) => SplashApp(),
       },
-      initialRoute: "/loginView",
+      initialRoute: "/splashView",
     );
 
   }
