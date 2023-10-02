@@ -1,10 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
 
   late BuildContext _context;
-  final TextEditingController usuario = TextEditingController();
-  final TextEditingController password = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class LoginView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextField(
-              controller: usuario,
+              controller: emailController,
               decoration: InputDecoration(
                 fillColor: Color(0xFFFFE6A5),
                 filled: true,
@@ -47,7 +48,7 @@ class LoginView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextFormField(
-              controller: password,
+              controller: passwordController,
               decoration: InputDecoration(
                 fillColor: Color(0xFFFFE6A5),
                 filled: true,
@@ -64,7 +65,7 @@ class LoginView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 80,),
-              TextButton(onPressed: null,
+              TextButton(onPressed: onClickAceptar,
                 style: ButtonStyle(
                   side: MaterialStateProperty.all(BorderSide(color: Colors.amberAccent))
                 ),
@@ -86,10 +87,42 @@ class LoginView extends StatelessWidget {
     );
   }
 
+  void onClickAceptar(){
+
+    iniciarSesion(emailController,passwordController);
+
+  }
+
   void onClickRegistrar(){
 
       Navigator.of(_context).pushNamed("/registerView");
 
+  }
+
+  Future<void> iniciarSesion(TextEditingController email, TextEditingController password) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email.text,
+        password: password.text,
+      );
+      ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("¡Login realizado con éxito!"),duration: Duration(seconds: 2),));
+      Navigator.pushNamed(_context, '/splashView');
+
+
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
+          content: Text("Usuario no encontrado"),
+          duration: Duration(seconds: 2),
+        ));
+
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
+          content: Text("Contraseña incorrecta"),
+          duration: Duration(seconds: 2),
+        ));
+      }
+    }
   }
 
 }

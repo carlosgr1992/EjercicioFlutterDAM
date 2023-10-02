@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget{
         "/registerView": (context) => RegisterView(),
         "/splashView": (context) => SplashApp(),
       },
-      initialRoute: "/splashView",
+      initialRoute: "/loginView",
     );
 
   }
