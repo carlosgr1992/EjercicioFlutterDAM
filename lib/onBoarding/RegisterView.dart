@@ -131,7 +131,13 @@ class RegisterView extends StatelessWidget {
           email: usuario.text,
           password: password.text,
         );
+
         Navigator.of(_context).pushNamed("/loginView");
+
+        ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
+            content: Text("¡Cuenta creada con exito!"),
+        duration: Duration(seconds: 2),));
+
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
