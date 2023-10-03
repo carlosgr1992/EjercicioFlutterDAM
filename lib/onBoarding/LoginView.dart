@@ -106,12 +106,10 @@ class LoginView extends StatelessWidget {
                 duration: Duration(seconds: 2)),
           );
         } else if (e.code == 'user-not-found') {
-          //if (emailController.text == 'car@hotmail.com')
           ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
             content: Text("Usuario no encontrado"),
             duration: Duration(seconds: 2),
           ));
-
         } else if (e.code == 'wrong-password') {
           ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
             content: Text("Contraseña incorrecta"),
