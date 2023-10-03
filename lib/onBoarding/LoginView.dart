@@ -20,7 +20,7 @@ class LoginView extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 25),
+          SizedBox(height: 80),
           Text(
             "Bienvenido al login",
             style: TextStyle(
@@ -29,7 +29,7 @@ class LoginView extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          SizedBox(height: 120),
+          SizedBox(height: 80),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextField(
@@ -44,7 +44,7 @@ class LoginView extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 50),
+          SizedBox(height: 30),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextFormField(
@@ -64,7 +64,7 @@ class LoginView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 80,),
+              SizedBox(height: 30,),
               TextButton(onPressed: onClickAceptar,
                 style: ButtonStyle(
                   side: MaterialStateProperty.all(BorderSide(color: Colors.amberAccent))
@@ -87,9 +87,35 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  void onClickAceptar(){
+  void onClickAceptar()async{
 
-    iniciarSesion(emailController,passwordController);
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+        ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("¡Login realizado con éxito!"),duration: Duration(seconds: 2),));
+        Navigator.pushNamed(_context, '/splashView');
+
+
+      } on  FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          //if (emailController.text == 'car@hotmail.com')
+          print("%%!%!!%!%!%!%%!%!% USUARIO NO ENCONTRADO");
+          ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
+            content: Text("Usuario no encontrado"),
+            duration: Duration(seconds: 2),
+          ));
+
+        } else if (e.code == 'wrong-password') {
+          print("%%!%!!%!%!%!%%!%!% CONTRASEÑA INCORRECTA");
+          ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
+            content: Text("Contraseña incorrecta"),
+            duration: Duration(seconds: 2),
+          ));
+        }
+      }
+
 
   }
 
@@ -97,32 +123,6 @@ class LoginView extends StatelessWidget {
 
       Navigator.of(_context).pushNamed("/registerView");
 
-  }
-
-  Future<void> iniciarSesion(TextEditingController email, TextEditingController password) async {
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email.text,
-        password: password.text,
-      );
-      ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("¡Login realizado con éxito!"),duration: Duration(seconds: 2),));
-      Navigator.pushNamed(_context, '/splashView');
-
-
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
-          content: Text("Usuario no encontrado"),
-          duration: Duration(seconds: 2),
-        ));
-
-      } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
-          content: Text("Contraseña incorrecta"),
-          duration: Duration(seconds: 2),
-        ));
-      }
-    }
   }
 
 }

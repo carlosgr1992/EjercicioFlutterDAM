@@ -30,7 +30,7 @@ class RegisterView extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          SizedBox(height: 120),
+          SizedBox(height: 50),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextField(
@@ -45,7 +45,7 @@ class RegisterView extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 50),
+          SizedBox(height: 30),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextFormField(
@@ -61,7 +61,7 @@ class RegisterView extends StatelessWidget {
               obscureText: true,
             ),
           ),
-          SizedBox(height: 50),
+          SizedBox(height: 30),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TextFormField(
@@ -81,7 +81,7 @@ class RegisterView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 80,
+                height: 120,
               ),
               TextButton(
                 onPressed: onClickAceptar,
