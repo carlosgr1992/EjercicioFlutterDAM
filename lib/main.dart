@@ -6,6 +6,7 @@ import 'MyApp.dart';
 
 Future<void> main() async {
 
+  WidgetsFlutterBinding.ensureInitialized();  //inicializa todo antes de correr la app
   initFB();
   runApp(MyApp());
 

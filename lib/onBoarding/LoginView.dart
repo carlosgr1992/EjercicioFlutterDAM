@@ -64,7 +64,7 @@ class LoginView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 30,),
+              SizedBox(height: 120,),
               TextButton(onPressed: onClickAceptar,
                 style: ButtonStyle(
                   side: MaterialStateProperty.all(BorderSide(color: Colors.amberAccent))
