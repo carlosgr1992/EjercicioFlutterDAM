@@ -99,16 +99,20 @@ class LoginView extends StatelessWidget {
 
 
       } on  FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
+        print('Código de la excepción: ${e.code}');
+        if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
+          ScaffoldMessenger.of(_context).showSnackBar(
+            SnackBar(content: Text("Credenciales inválidas"),
+                duration: Duration(seconds: 2)),
+          );
+        } else if (e.code == 'user-not-found') {
           //if (emailController.text == 'car@hotmail.com')
-          print("%%!%!!%!%!%!%%!%!% USUARIO NO ENCONTRADO");
           ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
             content: Text("Usuario no encontrado"),
             duration: Duration(seconds: 2),
           ));
 
         } else if (e.code == 'wrong-password') {
-          print("%%!%!!%!%!%!%%!%!% CONTRASEÑA INCORRECTA");
           ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
             content: Text("Contraseña incorrecta"),
             duration: Duration(seconds: 2),
