@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class PerfilDataView extends StatelessWidget {
@@ -120,13 +121,25 @@ class PerfilDataView extends StatelessWidget {
 
   void onClickAceptar(){
 
+    int? edadEntero = int.tryParse(edad.text);
 
+    usuarioMap["name"] = nombre.text;
+    usuarioMap["age"] = edadEntero;
+    usuarioMap["eyesColor"] = colorOjos.text;
+
+    // Obtenemos el UID del usuario actualmente autenticado
+    String? userID = FirebaseAuth.instance.currentUser?.uid;
+
+    if (userID != null) {
+      // Utiliza el UID como el ID del documento en la colección "Usuarios"
+      db.collection("Usuarios").doc(userID).set(usuarioMap);
+    }
 
   }
 
   void onClickCancelar(){
 
-
+  Navigator.of(_context).popAndPushNamed("/loginView");
 
   }
 
