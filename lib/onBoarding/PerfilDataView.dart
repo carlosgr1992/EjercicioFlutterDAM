@@ -1,13 +1,16 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class RegisterView extends StatelessWidget {
+class PerfilDataView extends StatelessWidget {
   late BuildContext _context;
 
-  final TextEditingController usuario = TextEditingController();
-  final TextEditingController password = TextEditingController();
-  final TextEditingController repeatPassword = TextEditingController();
+  final TextEditingController nombre = TextEditingController();
+  final TextEditingController edad = TextEditingController();
+  final TextEditingController colorOjos = TextEditingController();
+
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  Map<String, dynamic> usuarioMap = {};
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class RegisterView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Registro"),
+        title: Text("Datos Cliente"),
         centerTitle: true,
         backgroundColor: Colors.amberAccent,
       ),
@@ -25,7 +28,7 @@ class RegisterView extends StatelessWidget {
           children: [
             SizedBox(height: 25),
             Text(
-              "Registro nuevos usuarios",
+              "Datos de su perfil",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -36,11 +39,11 @@ class RegisterView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50.0),
               child: TextField(
-                controller: usuario,
+                controller: nombre,
                 decoration: InputDecoration(
                   fillColor: Color(0xFFFFE6A5),
                   filled: true,
-                  hintText: "Correo electrónico",
+                  hintText: "Nombre",
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.amberAccent),
                   ),
@@ -51,32 +54,30 @@ class RegisterView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50.0),
               child: TextFormField(
-                controller: password,
+                controller: edad,
                 decoration: InputDecoration(
                   fillColor: Color(0xFFFFE6A5),
                   filled: true,
-                  hintText: "Contraseña",
+                  hintText: "Edad",
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.amberAccent),
                   ),
                 ),
-                obscureText: true,
               ),
             ),
             SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50.0),
               child: TextFormField(
-                controller: repeatPassword,
+                controller: colorOjos,
                 decoration: InputDecoration(
                   fillColor: Color(0xFFFFE6A5),
                   filled: true,
-                  hintText: "Repetir contraseña",
+                  hintText: "Color de ojos",
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.amberAccent),
                   ),
                 ),
-                obscureText: true,
               ),
             ),
             Row(
@@ -91,7 +92,7 @@ class RegisterView extends StatelessWidget {
                       side: MaterialStateProperty.all(
                           BorderSide(color: Colors.amberAccent))),
                   child: Text(
-                    "Registrarme",
+                    "Aceptar",
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -113,58 +114,20 @@ class RegisterView extends StatelessWidget {
         ),
       ),
     );
+
+
   }
 
-  void onClickCancelar() {
-    Navigator.of(_context).pushNamed("/loginView");
+  void onClickAceptar(){
+
+
+
   }
 
-  void onClickAceptar() async {
+  void onClickCancelar(){
 
-    if (usuario.text.isEmpty ||
-        password.text.isEmpty ||
-        repeatPassword.text.isEmpty) {
-      ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
-        content: Text("Por favor, rellena todos los campos"),
-        duration: Duration(seconds: 2),
-      ));
-    }
 
-    if (password.text == repeatPassword.text) {
-      try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: usuario.text,
-          password: password.text,
-        );
 
-        Navigator.of(_context).pushNamed("/loginView");
-
-        ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
-          content: Text("¡Cuenta creada con exito!"),
-          duration: Duration(seconds: 2),
-        ));
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
-            content: Text("Contraseña demasiado corta"),
-            duration: Duration(seconds: 2),
-          ));
-        } else if (e.code == 'email-already-in-use') {
-          ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
-            content: Text("La cuenta ya existe."),
-            duration: Duration(seconds: 2),
-          ));
-        }
-      } catch (e) {
-        print(e);
-      }
-    } else if (password.text != repeatPassword.text) {
-      ScaffoldMessenger.of(_context).showSnackBar(
-        SnackBar(
-          content: Text("Las contraseñas no coinciden"),
-          duration: Duration(seconds: 2),
-        ),
-      );
-    }
   }
+
 }
