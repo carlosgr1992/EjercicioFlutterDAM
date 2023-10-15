@@ -31,7 +31,4 @@ class _SplashApp extends State<StatefulWidget>{
       ),
     );
   }
-
-
-
 }

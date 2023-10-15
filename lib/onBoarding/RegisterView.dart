@@ -18,96 +18,98 @@ class RegisterView extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.amberAccent,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(height: 25),
-          Text(
-            "Registro nuevos usuarios",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 25),
+            Text(
+              "Registro nuevos usuarios",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
-          ),
-          SizedBox(height: 50),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50.0),
-            child: TextField(
-              controller: usuario,
-              decoration: InputDecoration(
-                fillColor: Color(0xFFFFE6A5),
-                filled: true,
-                hintText: "Correo electrónico",
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.amberAccent),
+            SizedBox(height: 50),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+              child: TextField(
+                controller: usuario,
+                decoration: InputDecoration(
+                  fillColor: Color(0xFFFFE6A5),
+                  filled: true,
+                  hintText: "Correo electrónico",
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.amberAccent),
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 30),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50.0),
-            child: TextFormField(
-              controller: password,
-              decoration: InputDecoration(
-                fillColor: Color(0xFFFFE6A5),
-                filled: true,
-                hintText: "Contraseña",
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.amberAccent),
+            SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+              child: TextFormField(
+                controller: password,
+                decoration: InputDecoration(
+                  fillColor: Color(0xFFFFE6A5),
+                  filled: true,
+                  hintText: "Contraseña",
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.amberAccent),
+                  ),
                 ),
+                obscureText: true,
               ),
-              obscureText: true,
             ),
-          ),
-          SizedBox(height: 30),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50.0),
-            child: TextFormField(
-              controller: repeatPassword,
-              decoration: InputDecoration(
-                fillColor: Color(0xFFFFE6A5),
-                filled: true,
-                hintText: "Repetir contraseña",
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.amberAccent),
+            SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+              child: TextFormField(
+                controller: repeatPassword,
+                decoration: InputDecoration(
+                  fillColor: Color(0xFFFFE6A5),
+                  filled: true,
+                  hintText: "Repetir contraseña",
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.amberAccent),
+                  ),
                 ),
+                obscureText: true,
               ),
-              obscureText: true,
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 120,
-              ),
-              TextButton(
-                onPressed: onClickAceptar,
-                style: ButtonStyle(
-                    side: MaterialStateProperty.all(
-                        BorderSide(color: Colors.amberAccent))),
-                child: Text(
-                  "Registrarme",
-                  style: TextStyle(color: Colors.black),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 120,
                 ),
-              ),
-              SizedBox(
-                width: 50,
-              ),
-              TextButton(
-                  onPressed: onClickCancelar,
+                TextButton(
+                  onPressed: onClickAceptar,
                   style: ButtonStyle(
                       side: MaterialStateProperty.all(
                           BorderSide(color: Colors.amberAccent))),
                   child: Text(
-                    "Cancelar",
+                    "Registrarme",
                     style: TextStyle(color: Colors.black),
-                  ))
-            ],
-          )
-        ],
+                  ),
+                ),
+                SizedBox(
+                  width: 50,
+                ),
+                TextButton(
+                    onPressed: onClickCancelar,
+                    style: ButtonStyle(
+                        side: MaterialStateProperty.all(
+                            BorderSide(color: Colors.amberAccent))),
+                    child: Text(
+                      "Cancelar",
+                      style: TextStyle(color: Colors.black),
+                    ))
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -117,8 +119,9 @@ class RegisterView extends StatelessWidget {
   }
 
   void onClickAceptar() async {
-
-    if (usuario.text.isEmpty || password.text.isEmpty || repeatPassword.text.isEmpty) {
+    if (usuario.text.isEmpty ||
+        password.text.isEmpty ||
+        repeatPassword.text.isEmpty) {
       ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
         content: Text("Por favor, rellena todos los campos"),
         duration: Duration(seconds: 2),
@@ -135,9 +138,9 @@ class RegisterView extends StatelessWidget {
         Navigator.of(_context).pushNamed("/loginView");
 
         ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
-            content: Text("¡Cuenta creada con exito!"),
-        duration: Duration(seconds: 2),));
-
+          content: Text("¡Cuenta creada con exito!"),
+          duration: Duration(seconds: 2),
+        ));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
