@@ -1,3 +1,4 @@
+
   import 'package:firebase_auth/firebase_auth.dart';
   import 'package:flutter/material.dart';
 
@@ -13,9 +14,9 @@
 
   await Future.delayed(Duration (seconds: 5));
   if(FirebaseAuth.instance.currentUser != null){
-    Navigator.of(context).popAndPushNamed("/loginView");
+    Navigator.of(context).popAndPushNamed("/homeView");
   }else{
-    Navigator.of(context).popAndPushNamed("/registerView");
+    Navigator.of(context).popAndPushNamed("/loginView");
   }
 
   }

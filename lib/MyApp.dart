@@ -1,5 +1,6 @@
 
 
+import 'package:ejercicio_flutter_dam/Main/HomeView.dart';
 import 'package:ejercicio_flutter_dam/onBoarding/LoginView.dart';
 import 'package:ejercicio_flutter_dam/onBoarding/RegisterView.dart';
 import 'package:ejercicio_flutter_dam/splash/SplashApp.dart';
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget{
         "/loginView": (context) => LoginView(),
         "/registerView": (context) => RegisterView(),
         "/splashView": (context) => SplashApp(),
+        "/homeView": (context) => HomeView(),
       },
       initialRoute: "/splashView",
     );
