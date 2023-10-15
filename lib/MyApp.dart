@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget{
         "/splashView": (context) => SplashApp(),
         "/homeView": (context) => HomeView(),
       },
-      initialRoute: "/splashView",
+      initialRoute: "/loginView",
     );
 
   }

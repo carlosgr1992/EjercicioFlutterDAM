@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,7 @@ class RegisterView extends StatelessWidget {
   final TextEditingController usuario = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController repeatPassword = TextEditingController();
+  FirebaseFirestore db = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
