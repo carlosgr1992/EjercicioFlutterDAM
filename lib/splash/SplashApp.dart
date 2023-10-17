@@ -16,10 +16,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 
   await Future.delayed(Duration (seconds: 3));
   if(FirebaseAuth.instance.currentUser != null){
-    Navigator.of(context).popAndPushNamed("/homeView");
-  }else{
-    Navigator.of(context).popAndPushNamed("/loginView");
-  }
+    //Guardamos el uid del usuario conectado actualmente en la variable uid
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    //recibimos los datos del usuario, ponemos await para que espere a que acabe de cargar los datos del usuario
+    DocumentSnapshot<Map<String, dynamic>> datos = await db.collection("Usuarios").doc(uid).get();
+    if(datos.exists){
+      Navigator.of(context).popAndPushNamed("/homeView");
+    }else{
+      Navigator.of(context).popAndPushNamed("/perfilDataView");
+    }
+  }else Navigator.of(context).popAndPushNamed("loginView");
 
   }
 
