@@ -9,7 +9,7 @@ class PerfilDataView extends StatelessWidget {
   final TextEditingController nombre = TextEditingController();
   final TextEditingController edad = TextEditingController();
   final TextEditingController colorOjos = TextEditingController();
-
+ 
   FirebaseFirestore db = FirebaseFirestore.instance;
   Map<String, dynamic> usuarioMap = {};
 
