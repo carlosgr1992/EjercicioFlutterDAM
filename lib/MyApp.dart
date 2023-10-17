@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget{
         "/homeView": (context) => HomeView(),
         "/perfilDataView": (context) => PerfilDataView(),
       },
-      initialRoute: "/perfilDataView",
+      initialRoute: "/loginView",
     );
 
   }

@@ -106,7 +106,7 @@ class LoginView extends StatelessWidget {
         content: Text("¡Login realizado con éxito!"),
         duration: Duration(seconds: 2),
       ));
-      Navigator.pushNamed(_context, '/splashView');
+      Navigator.of(_context).popAndPushNamed('/splashView');
     } on FirebaseAuthException catch (e) {
       print('Código de la excepción: ${e.code}');
       if (e.code == 'INVALID_LOGIN_CREDENTIALS') {

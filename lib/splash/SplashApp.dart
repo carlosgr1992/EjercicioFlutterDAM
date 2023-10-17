@@ -1,6 +1,9 @@
 
-  import 'package:firebase_auth/firebase_auth.dart';
+  import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
   import 'package:flutter/material.dart';
+
+  FirebaseFirestore db = FirebaseFirestore.instance;
 
   class SplashApp extends StatefulWidget{
 
@@ -9,10 +12,9 @@
       return _SplashApp();
     }
   }
-
   void checkSession(BuildContext context) async {
 
-  await Future.delayed(Duration (seconds: 5));
+  await Future.delayed(Duration (seconds: 3));
   if(FirebaseAuth.instance.currentUser != null){
     Navigator.of(context).popAndPushNamed("/homeView");
   }else{

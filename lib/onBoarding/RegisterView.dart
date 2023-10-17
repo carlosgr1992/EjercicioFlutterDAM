@@ -137,7 +137,7 @@ class RegisterView extends StatelessWidget {
           password: password.text,
         );
 
-        Navigator.of(_context).pushNamed("/loginView");
+        Navigator.of(_context).pushNamed("/perfilDataView");
 
         ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
           content: Text("¡Cuenta creada con exito!"),

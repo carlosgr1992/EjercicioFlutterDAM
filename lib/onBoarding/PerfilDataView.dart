@@ -134,7 +134,7 @@ class PerfilDataView extends StatelessWidget {
       // Utiliza el UID como el ID del documento en la colección "Usuarios"
       db.collection("Usuarios").doc(userID).set(usuarioMap);
     }
-
+    Navigator.of(_context).popAndPushNamed("/homeView");
   }
 
   void onClickCancelar(){
