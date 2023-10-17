@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../firestoreObjects/FbUsuario.dart';
+
 class LoginView extends StatelessWidget {
   late final BuildContext _context;
   final TextEditingController emailController = TextEditingController();
@@ -99,58 +101,42 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  void onClickAceptar() async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
-      );
-
-          compruebaSesion();
-
-      ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
-        content: Text("¡Login realizado con éxito!"),
-        duration: Duration(seconds: 2),
-      ));
-
-
-    } on FirebaseAuthException catch (e) {
-      print('Código de la excepción: ${e.code}');
-      if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
-        ScaffoldMessenger.of(_context).showSnackBar(
-          SnackBar(
-              content: Text("Credenciales inválidas"),
-              duration: Duration(seconds: 2)),
-        );
-      } else if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
-          content: Text("Usuario no encontrado"),
-          duration: Duration(seconds: 2),
-        ));
-      } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
-          content: Text("Contraseña incorrecta"),
-          duration: Duration(seconds: 2),
-        ));
-      }
-    }
-  }
-
   void onClickRegistrar() {
     Navigator.of(_context).pushNamed("/registerView");
   }
 
+  void onClickAceptar() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+
+      // Llama a compruebaSesion para decidir a qué pantalla ir
+      compruebaSesion();
+    } on FirebaseAuthException catch (e) {
+      // Manejo de excepciones
+    }
+  }
+
   void compruebaSesion() async {
-    if (FirebaseAuth.instance.currentUser != null) {
-      //Guardamos el uid del usuario conectado actualmente en la variable uid
-      String uid = FirebaseAuth.instance.currentUser!.uid;
-      //recibimos los datos del usuario, ponemos await para que espere a que acabe de cargar los datos del usuario
-      DocumentSnapshot<Map<String, dynamic>> datos = await db.collection("Usuarios").doc(uid).get();
-      if (datos.exists) {
-        Navigator.of(_context).popAndPushNamed("/homeView");
-      } else {
-        Navigator.of(_context).popAndPushNamed("/perfilDataView");
-      }
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentReference<FbUsuario> ref = db.collection("Usuarios")
+        .doc(uid)
+        .withConverter(
+      fromFirestore: FbUsuario.fromFirestore,
+      toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),
+    );
+
+    DocumentSnapshot<FbUsuario> docSnap = await ref.get();
+
+    // Verifica si hay datos antes de acceder a ellos
+    if (docSnap.exists) {
+      FbUsuario usuario = docSnap.data()!; // Ahora estamos seguros de que no es nulo
+      Navigator.of(_context).popAndPushNamed("/homeView");
+    } else {
+      Navigator.of(_context).popAndPushNamed("/perfilDataView");
     }
   }
 }

@@ -1,5 +1,6 @@
 
   import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ejercicio_flutter_dam/firestoreObjects/FbUsuario.dart';
 import 'package:firebase_auth/firebase_auth.dart';
   import 'package:flutter/material.dart';
 
@@ -18,9 +19,16 @@ import 'package:firebase_auth/firebase_auth.dart';
   if(FirebaseAuth.instance.currentUser != null){
     //Guardamos el uid del usuario conectado actualmente en la variable uid
     String uid = FirebaseAuth.instance.currentUser!.uid;
-    //recibimos los datos del usuario, ponemos await para que espere a que acabe de cargar los datos del usuario
-    DocumentSnapshot<Map<String, dynamic>> datos = await db.collection("Usuarios").doc(uid).get();
-    if(datos.exists){
+    //Todo lo de debajo es para conseguir el objeto "usuario" del usuario en curso.
+    DocumentReference<FbUsuario> reference = db.collection("Usuarios")
+        .doc(uid)
+        .withConverter(fromFirestore: FbUsuario.fromFirestore, toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),);
+
+    DocumentSnapshot<FbUsuario> docSnap = await reference.get();
+
+    FbUsuario usuario = docSnap.data()!;
+
+    if(usuario != null){
       Navigator.of(context).popAndPushNamed("/homeView");
     }else{
       Navigator.of(context).popAndPushNamed("/perfilDataView");
