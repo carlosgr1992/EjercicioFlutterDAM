@@ -18,19 +18,24 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: Text('Home'),
       ),
-      body: ListView.builder(
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, // Puedes ajustar el número de columnas aquí
+        ),
         itemCount: users.length,
-        itemBuilder: creaListaItems,
+        itemBuilder: creaGridItem,
       ),
     );
   }
 
-  Widget creaListaItems(BuildContext context, int indice) {
-    return Column(
-      children: [
-        Text('Nombre: ${users[indice].name}'),
-        Text('Edad: ${users[indice].age.toString()}'),
-      ],
+  Widget creaGridItem(BuildContext context, int indice) {
+    return Card(
+      child: Column(
+        children: [
+          Text('Nombre: ${users[indice].name}'),
+          Text('Edad: ${users[indice].age.toString()}'),
+        ],
+      ),
     );
   }
 
