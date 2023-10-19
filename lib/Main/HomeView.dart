@@ -10,7 +10,8 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final FirebaseFirestore db = FirebaseFirestore.instance;
-  late List<FbUsuario> users = [];
+  late List<FbPost> users = [];
+  final List posts = [];
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,19 @@ class _HomeViewState extends State<HomeView> {
         itemBuilder: creaGridItem,
       ),
     );
+  }
+
+  void descargaPosts() async{
+
+    CollectionReference<FbPost> reference = db.collection("Post")
+        .withConverter(fromFirestore: FbPost.fromFirestore, toFirestore: (FbPost post, _) => post.toFirestore(),);
+
+    QuerySnapshot <FbPost> querySnapshot = await reference.get();
+
+    for(int i = 0; i < querySnapshot.docs.length; i++){
+      posts.add(querySnapshot.docs[i].data());
+    }
+
   }
 
   Widget creaGridItem(BuildContext context, int indice) {
@@ -50,9 +64,9 @@ class _HomeViewState extends State<HomeView> {
     final QuerySnapshot usersSnapshot = await db.collection('Usuarios').get();
 
     // Itera sobre los documentos para obtener los datos y almacenarlos en la lista.
-    final List<FbUsuario> userList = [];
+    final List<FbPost> userList = [];
     for (final DocumentSnapshot userDoc in usersSnapshot.docs) {
-      final user = FbUsuario.fromFirestore(userDoc as DocumentSnapshot<Map<String, dynamic>>, null);
+      final user = FbPost.fromFirestore(userDoc as DocumentSnapshot<Map<String, dynamic>>, null);
       userList.add(user);
     }
 

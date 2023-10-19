@@ -20,13 +20,13 @@ import 'package:firebase_auth/firebase_auth.dart';
     //Guardamos el uid del usuario conectado actualmente en la variable uid
     String uid = FirebaseAuth.instance.currentUser!.uid;
     //Todo lo de debajo es para conseguir el objeto "usuario" del usuario en curso.
-    DocumentReference<FbUsuario> reference = db.collection("Usuarios")
+    DocumentReference<FbPost> reference = db.collection("Usuarios")
         .doc(uid)
-        .withConverter(fromFirestore: FbUsuario.fromFirestore, toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),);
+        .withConverter(fromFirestore: FbPost.fromFirestore, toFirestore: (FbPost usuario, _) => usuario.toFirestore(),);
 
-    DocumentSnapshot<FbUsuario> docSnap = await reference.get();
+    DocumentSnapshot<FbPost> docSnap = await reference.get();
 
-    FbUsuario usuario = docSnap.data()!;
+    FbPost usuario = docSnap.data()!;
 
     if(usuario != null){
       Navigator.of(context).popAndPushNamed("/homeView");

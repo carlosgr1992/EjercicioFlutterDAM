@@ -122,18 +122,18 @@ class LoginView extends StatelessWidget {
   void compruebaSesion() async {
     String uid = FirebaseAuth.instance.currentUser!.uid;
 
-    DocumentReference<FbUsuario> ref = db.collection("Usuarios")
+    DocumentReference<FbPost> ref = db.collection("Usuarios")
         .doc(uid)
         .withConverter(
-      fromFirestore: FbUsuario.fromFirestore,
-      toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),
+      fromFirestore: FbPost.fromFirestore,
+      toFirestore: (FbPost usuario, _) => usuario.toFirestore(),
     );
 
-    DocumentSnapshot<FbUsuario> docSnap = await ref.get();
+    DocumentSnapshot<FbPost> docSnap = await ref.get();
 
     // Verifica si hay datos antes de acceder a ellos
     if (docSnap.exists) {
-      FbUsuario usuario = docSnap.data()!; // Ahora estamos seguros de que no es nulo
+      FbPost usuario = docSnap.data()!; // Ahora estamos seguros de que no es nulo
       Navigator.of(_context).popAndPushNamed("/homeView");
     } else {
       Navigator.of(_context).popAndPushNamed("/perfilDataView");
