@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FbPost{
 
   final String title;
-  final int body;
+  final String body;
 
   FbPost({
     required this.title,
@@ -12,12 +12,13 @@ class FbPost{
   });
 
   factory FbPost.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot, SnapshotOptions? options) {
+      DocumentSnapshot<Map<String, dynamic>> snapshot,
+      SnapshotOptions? options) {
     final data = snapshot.data();
     return FbPost(
       title: data?['title'],
-      body: (data?['body']
-    ));
+      body: data?['body']
+    );
   }
 
   Map<String, dynamic> toFirestore() {

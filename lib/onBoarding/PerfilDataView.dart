@@ -15,7 +15,7 @@ class PerfilDataView extends StatelessWidget {
 
   void onClickAceptar(){
 
-    FbPost usuario = FbPost(name: nombre.text, age: int.parse(edad.text), eyeColor: colorOjos.text);
+    FbUsuario usuario = FbUsuario(name: nombre.text, age: int.parse(edad.text), eyeColor: colorOjos.text);
     // Obtenemos el UID del usuario actualmente autenticado
     String? userID = FirebaseAuth.instance.currentUser?.uid;
 

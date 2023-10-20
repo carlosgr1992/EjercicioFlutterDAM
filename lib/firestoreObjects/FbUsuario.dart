@@ -1,22 +1,22 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FbPost{
+class FbUsuario{
 
   final String name;
   final int age;
   final String eyeColor;
 
-  FbPost({
+  FbUsuario({
     required this.name,
     required this.age,
     required this.eyeColor
 });
 
-  factory FbPost.fromFirestore(
+  factory FbUsuario.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot, SnapshotOptions? options) {
     final data = snapshot.data();
-    return FbPost(
+    return FbUsuario(
       name: data?['name'] ?? "",
       age: (data?['age'] ?? 0) is int ? data!['age'] as int : 0,
       eyeColor: data?['eyeColor'] ?? "",
