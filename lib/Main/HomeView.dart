@@ -31,19 +31,18 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void descargaPosts() async {
-    CollectionReference<FbPost> reference =
-        db.collection("Posts").withConverter(
-              fromFirestore: FbPost.fromFirestore,
-              toFirestore: (FbPost post, _) => post.toFirestore(),
-            );
+    CollectionReference<FbPost> reference = db.collection("Posts").withConverter(
+      fromFirestore: (snapshot, _) => FbPost.fromFirestore(snapshot, null),
+      toFirestore: (post, _) => post.toFirestore(),
+    );
 
     QuerySnapshot<FbPost> querySnapshot = await reference.get();
-    for (int i = 0; i < querySnapshot.docs.length; i++) {
-      setState(() {
-        posts.add(querySnapshot.docs[i].data());
-      });
-    }
+
+    setState(() {
+      posts.addAll(querySnapshot.docs.map((doc) => doc.data()).toList());
+    });
   }
+
 
   Widget creaGridItem(BuildContext context, int indice) {
     return PostCellView(
