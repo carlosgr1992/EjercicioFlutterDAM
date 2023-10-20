@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ejercicio_flutter_dam/custom/PostCellView.dart';
 import 'package:flutter/material.dart';
 
 import '../firestoreObjects/FbUsuario.dart';
@@ -10,7 +11,6 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final FirebaseFirestore db = FirebaseFirestore.instance;
-  late List<FbPost> users = [];
   final List posts = [];
 
   @override
@@ -21,9 +21,9 @@ class _HomeViewState extends State<HomeView> {
       ),
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // Puedes ajustar el número de columnas aquí
+          crossAxisCount: 2, //Ajustar el número de columnas aquí
         ),
-        itemCount: users.length,
+        itemCount: 1,
         itemBuilder: creaGridItem,
       ),
     );
@@ -43,36 +43,15 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget creaGridItem(BuildContext context, int indice) {
-    return Card(
-      child: Column(
-        children: [
-          Text('Nombre: ${users[indice].name}'),
-          Text('Edad: ${users[indice].age.toString()}'),
-        ],
-      ),
-    );
+
+    return PostCellView(sPost: "HOLA QUIERO VER MI PRIMER POST", iColorCode: 400, dFontSize: 20);
   }
 
   void initState() {
     super.initState();
     // Llama a la función que obtiene los datos al cargar la vista.
-    fetchData();
+    descargaPosts();
   }
 
-  Future<void> fetchData() async {
-    // Realiza una consulta a la colección "Usuarios" en Firestore.
-    final QuerySnapshot usersSnapshot = await db.collection('Usuarios').get();
 
-    // Itera sobre los documentos para obtener los datos y almacenarlos en la lista.
-    final List<FbPost> userList = [];
-    for (final DocumentSnapshot userDoc in usersSnapshot.docs) {
-      final user = FbPost.fromFirestore(userDoc as DocumentSnapshot<Map<String, dynamic>>, null);
-      userList.add(user);
-    }
-
-    // Actualiza el estado para reflejar los datos obtenidos.
-    setState(() {
-      users = userList;
-    });
-  }
 }
