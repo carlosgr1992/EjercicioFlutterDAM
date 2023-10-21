@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ejercicio_flutter_dam/custom/ButtonMenu.dart';
 import 'package:ejercicio_flutter_dam/custom/PostCellView.dart';
 import 'package:flutter/material.dart';
 
@@ -21,20 +22,37 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: Text('Home'),
       ),
-      body: muestraGridView(),
+      body: Center(
+        child: isList ? muestraListView() : muestraGridView(),
+      ),
+      bottomNavigationBar: ButtonMenu(),
     );
   }
 
-  GridView muestraGridView(){
+  Widget creaItem(BuildContext context, int indice) {
+    return PostCellView(
+        sPost: posts[indice].body,sTitle: posts[indice].title, iColorCode: 400, dFontSize: 20);
+  }
+
+  Widget muestraGridView(){
 
     return GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2, //Ajustar el número de columnas aquí
     ),
     itemCount: posts.length,
-    itemBuilder: creaGridItem);
+    itemBuilder: creaItem);
 
 }
+
+  Widget muestraListView() {
+    return ListView.builder(
+      padding: EdgeInsets.all(12),
+      itemExtent: 80, //Esto es para poner una separación entre post y post
+      itemCount: posts.length,
+      itemBuilder: creaItem,
+    );
+  }
 
   void descargaPosts() async {
     CollectionReference<FbPost> reference = db.collection("Posts").withConverter(
@@ -47,12 +65,6 @@ class _HomeViewState extends State<HomeView> {
     setState(() {
       posts.addAll(querySnapshot.docs.map((doc) => doc.data()).toList());
     });
-  }
-
-
-  Widget creaGridItem(BuildContext context, int indice) {
-    return PostCellView(
-        sPost: posts[indice].body,sTitle: posts[indice].title, iColorCode: 400, dFontSize: 20);
   }
 
   void initState() {
