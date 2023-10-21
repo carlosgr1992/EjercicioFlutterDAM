@@ -13,6 +13,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final FirebaseFirestore db = FirebaseFirestore.instance;
   final List<FbPost> posts = [];
+  bool isList = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +21,20 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: Text('Home'),
       ),
-      body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, //Ajustar el número de columnas aquí
-        ),
-        itemCount: posts.length,
-        itemBuilder: creaGridItem,
-      ),
+      body: muestraGridView(),
     );
   }
+
+  GridView muestraGridView(){
+
+    return GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2, //Ajustar el número de columnas aquí
+    ),
+    itemCount: posts.length,
+    itemBuilder: creaGridItem);
+
+}
 
   void descargaPosts() async {
     CollectionReference<FbPost> reference = db.collection("Posts").withConverter(
@@ -46,7 +52,7 @@ class _HomeViewState extends State<HomeView> {
 
   Widget creaGridItem(BuildContext context, int indice) {
     return PostCellView(
-        sPost: posts[indice].body, iColorCode: 400, dFontSize: 20);
+        sPost: posts[indice].body,sTitle: posts[indice].title, iColorCode: 400, dFontSize: 20);
   }
 
   void initState() {
