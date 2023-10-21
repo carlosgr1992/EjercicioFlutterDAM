@@ -25,8 +25,19 @@ class _HomeViewState extends State<HomeView> {
       body: Center(
         child: isList ? muestraListView() : muestraGridView(),
       ),
-      bottomNavigationBar: ButtonMenu(),
+      bottomNavigationBar: ButtonMenu(evento: botonPressed), //El evento de la clase ButtonMenu se lo paso(el indice) y lo que quiero que haga lo meto en el metodo botonPressed
     );
+  }
+  void botonPressed(int indice){
+
+    setState(() {
+      if(indice == 0){
+        isList = true;
+      }else if (indice == 1){
+        isList = false;
+      }
+    });
+
   }
 
   Widget creaItem(BuildContext context, int indice) {
