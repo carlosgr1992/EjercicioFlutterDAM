@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ejercicio_flutter_dam/custom/ButtonMenu.dart';
+import 'package:ejercicio_flutter_dam/custom/DrawerClass.dart';
 import 'package:ejercicio_flutter_dam/custom/PostCellView.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../firestoreObjects/FbPost.dart';
 import '../firestoreObjects/FbUsuario.dart';
+import '../onBoarding/LoginView.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -25,9 +30,25 @@ class _HomeViewState extends State<HomeView> {
       body: Center(
         child: isList ? muestraListView() : muestraGridView(),
       ),
+      drawer: DrawerClass(onItemTap: funcHomeDrawerTap),
       bottomNavigationBar: ButtonMenu(evento: botonPressed), //El evento de la clase ButtonMenu se lo paso(el indice) y lo que quiero que haga lo meto en el metodo botonPressed
     );
   }
+
+  void funcHomeDrawerTap(int indice){
+
+    if(indice==0){
+      FirebaseAuth.instance.signOut();
+      Navigator.of(context).pushAndRemoveUntil (
+        MaterialPageRoute (builder: (BuildContext context) =>  LoginView()),
+        ModalRoute.withName('/loginview'),
+      );
+    }
+    else if(indice==1){
+      exit(0);
+    }
+  }
+
   void botonPressed(int indice){
 
     setState(() {

@@ -1,0 +1,79 @@
+[1mdiff --git a/lib/Main/HomeView.dart b/lib/Main/HomeView.dart[m
+[1mindex e76b427..993592f 100644[m
+[1m--- a/lib/Main/HomeView.dart[m
+[1m+++ b/lib/Main/HomeView.dart[m
+[36m@@ -1,10 +1,15 @@[m
+[32m+[m[32mimport 'dart:io';[m
+[32m+[m
+ import 'package:cloud_firestore/cloud_firestore.dart';[m
+ import 'package:ejercicio_flutter_dam/custom/ButtonMenu.dart';[m
+[32m+[m[32mimport 'package:ejercicio_flutter_dam/custom/DrawerClass.dart';[m
+ import 'package:ejercicio_flutter_dam/custom/PostCellView.dart';[m
+[32m+[m[32mimport 'package:firebase_auth/firebase_auth.dart';[m
+ import 'package:flutter/material.dart';[m
+ [m
+ import '../firestoreObjects/FbPost.dart';[m
+ import '../firestoreObjects/FbUsuario.dart';[m
+[32m+[m[32mimport '../onBoarding/LoginView.dart';[m
+ [m
+ class HomeView extends StatefulWidget {[m
+   @override[m
+[36m@@ -25,9 +30,25 @@[m [mclass _HomeViewState extends State<HomeView> {[m
+       body: Center([m
+         child: isList ? muestraListView() : muestraGridView(),[m
+       ),[m
+[32m+[m[32m      drawer: DrawerClass(onItemTap: funcHomeDrawerTap),[m
+       bottomNavigationBar: ButtonMenu(evento: botonPressed), //El evento de la clase ButtonMenu se lo paso(el indice) y lo que quiero que haga lo meto en el metodo botonPressed[m
+     );[m
+   }[m
+[32m+[m
+[32m+[m[32m  void funcHomeDrawerTap(int indice){[m
+[32m+[m
+[32m+[m[32m    if(indice==0){[m
+[32m+[m[32m      FirebaseAuth.instance.signOut();[m
+[32m+[m[32m      Navigator.of(context).pushAndRemoveUntil ([m
+[32m+[m[32m        MaterialPageRoute (builder: (BuildContext context) =>  LoginView()),[m
+[32m+[m[32m        ModalRoute.withName('/loginview'),[m
+[32m+[m[32m      );[m
+[32m+[m[32m    }[m
+[32m+[m[32m    else if(indice==1){[m
+[32m+[m[32m      exit(0);[m
+[32m+[m[32m    }[m
+[32m+[m[32m  }[m
+[32m+[m
+   void botonPressed(int indice){[m
+ [m
+     setState(() {[m
+[1mdiff --git a/lib/custom/DrawerClass.dart b/lib/custom/DrawerClass.dart[m
+[1mindex 43d9767..8064655 100644[m
+[1m--- a/lib/custom/DrawerClass.dart[m
+[1m+++ b/lib/custom/DrawerClass.dart[m
+[36m@@ -16,9 +16,9 @@[m [mclass DrawerClass extends StatelessWidget{[m
+         children: [[m
+           const DrawerHeader([m
+             decoration: BoxDecoration([m
+[31m-              color: Colors.black,[m
+[32m+[m[32m              color: Colors.lightBlueAccent,[m
+             ),[m
+[31m-            child: Text("Header",[m
+[32m+[m[32m            child: Text("Opciones",[m
+                 style: TextStyle(color: Colors.white),[m
+             ),[m
+           ),[m
+[36m@@ -26,14 +26,14 @@[m [mclass DrawerClass extends StatelessWidget{[m
+             leading: Icon(Icons.account_circle),[m
+             selectedColor: Colors.blue,[m
+             selected: true,[m
+[31m-            title: Text("Mi perfil"),[m
+[32m+[m[32m            title: Text("Login"),[m
+             onTap: () {[m
+               onItemTap!(0);[m
+             },[m
+           ),[m
+           ListTile([m
+             leading: Icon(Icons.account_balance_wallet),[m
+[31m-            title: Text("Compras"),[m
+[32m+[m[32m            title: Text("Salir"),[m
+             onTap: () {[m
+               onItemTap!(1);[m
+             },[m
