@@ -1,14 +1,12 @@
-
 import 'package:flutter/material.dart';
 
-
-
-class PostCellView extends StatelessWidget{
-
+class PostCellView extends StatelessWidget {
   final String sPost;
   final String sTitle;
   final int iColorCode;
   final double dFontSize;
+  final int iPosicion;
+  final VoidCallback? onTap; // Callback para manejar el toque
 
   PostCellView({
     Key? key,
@@ -16,31 +14,35 @@ class PostCellView extends StatelessWidget{
     required this.sTitle,
     required this.iColorCode,
     required this.dFontSize,
+    this.onTap,
+    required this.iPosicion,
   }) : super(key: key);
-
- /* @override
-  Widget build(BuildContext context) {
-    return Text(sPost,
-      style: TextStyle(
-          color: Colors.amber[iColorCode],
-          fontSize: dFontSize),);
-    }*/
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(sTitle,
-        style: TextStyle(
-          color: Colors.amber[iColorCode],
-          fontSize: dFontSize
-        ),),
-        Text(sPost,
-          style: TextStyle(
-              color: Colors.amber[iColorCode],
-              fontSize: dFontSize
-          ),)
+        GestureDetector(
+          onTap: onTap, // Asigna la función de callback al toque del título
+          child: Text(
+            sTitle,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: dFontSize,
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: onTap, // Asigna la función de callback al toque del texto
+          child: Text(
+            sPost,
+            style: TextStyle(
+              color: Colors.lightBlueAccent[iColorCode],
+              fontSize: dFontSize,
+            ),
+          ),
+        ),
       ],
     );
-   }
   }
+}
