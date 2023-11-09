@@ -68,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
 
 void onItemListClicked(int indice){
 
-    print("has tocado" + indice.toString());
+    Navigator.of(context).pushNamed("/postView");
 
 }
 
