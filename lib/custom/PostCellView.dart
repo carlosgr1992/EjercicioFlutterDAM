@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PostCellView extends StatelessWidget {
@@ -6,16 +7,16 @@ class PostCellView extends StatelessWidget {
   final int iColorCode;
   final double dFontSize;
   final int iPosicion;
-  final VoidCallback? onTap; // Callback para manejar el toque
+  final Function(int indice) onTapClicked;
 
-  PostCellView({
+  const PostCellView({
     Key? key,
     required this.sPost,
     required this.sTitle,
     required this.iColorCode,
     required this.dFontSize,
-    this.onTap,
     required this.iPosicion,
+    required this.onTapClicked,
   }) : super(key: key);
 
   @override
@@ -23,7 +24,7 @@ class PostCellView extends StatelessWidget {
     return Column(
       children: [
         GestureDetector(
-          onTap: onTap, // Asigna la función de callback al toque del título
+          onTap: () => onTapClicked(iPosicion), // Corrige la llamada a onTapClicked
           child: Text(
             sTitle,
             style: TextStyle(
@@ -33,7 +34,7 @@ class PostCellView extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: onTap, // Asigna la función de callback al toque del texto
+          onTap: () => onTapClicked(iPosicion), // Corrige la llamada a onTapClicked
           child: Text(
             sPost,
             style: TextStyle(

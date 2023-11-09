@@ -63,12 +63,14 @@ class _HomeViewState extends State<HomeView> {
 
   Widget creaItem(BuildContext context, int indice) {
     return PostCellView(
-        sPost: posts[indice].body,sTitle: posts[indice].title,  iPosicion: indice,onTap: pinta, iColorCode: 400, dFontSize: 20);
+        sPost: posts[indice].body,sTitle: posts[indice].title,iPosicion: indice, onTapClicked: onItemListClicked,  iColorCode: 400, dFontSize: 20);
   }
 
-  void pinta(){
-    print("hola");
-  }
+void onItemListClicked(int indice){
+
+    print("has tocado" + indice.toString());
+
+}
 
   Widget muestraGridView(){
 
