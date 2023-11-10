@@ -20,8 +20,7 @@ class FbPost{
     return FbPost(
       title: data?['title'],
       body: data?['body'],
-      urlImg: data?['urlImg'],
-    );
+      urlImg: data?['urlImg'] ?? "Sin imagen cargada",);
   }
 
   Map<String, dynamic> toFirestore() {
