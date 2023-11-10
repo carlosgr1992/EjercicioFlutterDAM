@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ejercicio_flutter_dam/custom/ButtonMenu.dart';
 import 'package:ejercicio_flutter_dam/custom/DrawerClass.dart';
 import 'package:ejercicio_flutter_dam/custom/PostCellView.dart';
+import 'package:ejercicio_flutter_dam/singletone/DataHolder.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -68,6 +69,7 @@ class _HomeViewState extends State<HomeView> {
 
 void onItemListClicked(int indice){
 
+    DataHolder().selectedPost = posts[indice];
     Navigator.of(context).pushNamed("/postView");
 
 }

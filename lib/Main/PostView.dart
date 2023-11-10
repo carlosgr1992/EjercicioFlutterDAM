@@ -1,4 +1,5 @@
-  import 'package:flutter/cupertino.dart';
+  import 'package:ejercicio_flutter_dam/singletone/DataHolder.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PostView extends StatelessWidget{
@@ -6,11 +7,11 @@ class PostView extends StatelessWidget{
   Widget build(BuildContext context) {
     
     return Scaffold(
-      appBar: AppBar(title: Text("Titulo"),),
+      appBar: AppBar(title: Text("Post"),),
       body: Column(
         children: [
-          Text("Titulo"),
-          Text("Cuerpo"),
+          Text(DataHolder().selectedPost.title),
+          Text(DataHolder().selectedPost.body),
           //Image.network("imagen"),
           TextButton(onPressed: null, child: Text("Compartir"))
         ],
