@@ -12,7 +12,7 @@ class PostView extends StatelessWidget{
         children: [
           Text(DataHolder().selectedPost.title),
           Text(DataHolder().selectedPost.body),
-          //Image.network("imagen"),
+          Image.network(DataHolder().selectedPost.urlImg),
           TextButton(onPressed: null, child: Text("Compartir"))
         ],
       )
