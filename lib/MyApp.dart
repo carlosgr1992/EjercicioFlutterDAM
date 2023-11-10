@@ -8,6 +8,8 @@ import 'package:ejercicio_flutter_dam/onBoarding/RegisterView.dart';
 import 'package:ejercicio_flutter_dam/splash/SplashApp.dart';
 import 'package:flutter/material.dart';
 
+import 'Main/PostCreateView.dart';
+
 class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -20,9 +22,10 @@ class MyApp extends StatelessWidget{
         "/splashView": (context) => SplashApp(),
         "/homeView": (context) => HomeView(),
         "/perfilDataView": (context) => PerfilDataView(),
-        "/postView": (context) => PostView()
+        "/postView": (context) => PostView(),
+        "/postCreateView": (context) => PostCreateView(),
       },
-      initialRoute: "/loginView",
+      initialRoute: "/splashView",
     );
 
   }

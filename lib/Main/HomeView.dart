@@ -33,6 +33,12 @@ class _HomeViewState extends State<HomeView> {
       ),
       drawer: DrawerClass(onItemTap: funcHomeDrawerTap),
       bottomNavigationBar: ButtonMenu(evento: botonPressed), //El evento de la clase ButtonMenu se lo paso(el indice) y lo que quiero que haga lo meto en el metodo botonPressed
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed("/postCreateView");
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 
