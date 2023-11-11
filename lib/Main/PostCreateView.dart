@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ejercicio_flutter_dam/firestoreObjects/FbPost.dart';
+import 'package:ejercicio_flutter_dam/singletone/DataHolder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PostCreateView extends StatelessWidget {
   final TextEditingController tecTitulo = TextEditingController();
   final TextEditingController tecCuerpo = TextEditingController();
+  FirebaseFirestore db = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +43,12 @@ class PostCreateView extends StatelessWidget {
                 ),
               ),
             ),
+            //Image.network(""),
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                String titulo = tecTitulo.text;
-                String cuerpo = tecCuerpo.text;
-                
+
+               cargaPost(context);
               },
               child: Text("Postear"),
             ),
@@ -52,5 +56,22 @@ class PostCreateView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void cargaPost(BuildContext context) async {
+    String titulo = tecTitulo.text;
+    String cuerpo = tecCuerpo.text;
+
+
+    FbPost postNuevo = new FbPost(title: tecTitulo.text, body: tecCuerpo.text, urlImg: "");
+
+    CollectionReference<FbPost> postsRef = db.collection("Posts")
+        .withConverter(
+      fromFirestore: FbPost.fromFirestore,
+      toFirestore: (FbPost post, _) => post.toFirestore(),
+    );
+
+    postsRef.add(postNuevo);
+    Navigator.of(context).pushNamed("/homeView");
   }
 }
