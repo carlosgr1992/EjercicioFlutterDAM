@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget{
         "/postView": (context) => PostView(),
         "/postCreateView": (context) => PostCreateView(),
       },
-      initialRoute: "/splashView",
+      initialRoute: "/loginView",
     );
 
   }
