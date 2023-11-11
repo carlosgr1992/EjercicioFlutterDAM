@@ -76,6 +76,7 @@ class _HomeViewState extends State<HomeViewWeb> {
   void onItemListClicked(int indice){
 
     DataHolder().selectedPost = posts[indice];
+    DataHolder().guardaSelectedPostCache(); //Guardamos el post para que me permita actualizar la paginas y mostrar el post
     Navigator.of(context).pushNamed("/postView");
 
   }
