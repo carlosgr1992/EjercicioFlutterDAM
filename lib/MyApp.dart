@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           "/loginView": (context) => LoginView(),
           "/registerView": (context) => RegisterView(),
           "/splashView": (context) => SplashApp(),
-          "/homeView": (context) => HomeViewWeb(),
+          "/homeViewWeb": (context) => HomeViewWeb(),
           "/perfilDataView": (context) => PerfilDataView(),
           "/postView": (context) => PostView(),
           "/postCreateView": (context) => PostCreateView(),

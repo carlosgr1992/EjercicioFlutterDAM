@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../firestoreObjects/FbUsuario.dart';
+import '../singletone/PlatformAdmin.dart';
 
 class LoginView extends StatelessWidget {
   late final BuildContext _context;
@@ -135,7 +136,8 @@ class LoginView extends StatelessWidget {
     // Verifica si hay datos antes de acceder a ellos
     if (docSnap.exists) {
       FbUsuario usuario = docSnap.data()!; // Ahora estamos seguros de que no es nulo
-      Navigator.of(_context).popAndPushNamed("/homeView");
+      (PlatformAdmin().isWeb || PlatformAdmin().isDesktop) ? Navigator.of(_context).popAndPushNamed("/homeViewWeb")
+                                                           : Navigator.of(_context).popAndPushNamed("/homeView");
     } else {
       Navigator.of(_context).popAndPushNamed("/perfilDataView");
     }
