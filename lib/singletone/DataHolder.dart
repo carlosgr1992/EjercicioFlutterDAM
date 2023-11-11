@@ -14,9 +14,7 @@ class DataHolder {
 
   DataHolder._internal(){   //Constructor
 
-    sTitulo = "titulo";
-    sCuerpo = "cuerpo";
-    cargarCacheFbPost();
+
   }
 
   factory DataHolder(){
@@ -31,6 +29,13 @@ class DataHolder {
        fromFirestore: FbPost.fromFirestore,
        toFirestore: (FbPost post, _) => post.toFirestore(),
      );
+   }
+
+   void initDataHolder(){
+
+     sTitulo = "titulo";
+     sCuerpo = "cuerpo";
+     cargarCacheFbPost();
    }
 
    void guardaSelectedPostCache() async{
