@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import '../firestoreObjects/FbPost.dart';
 import '../firestoreObjects/FbUsuario.dart';
 import '../onBoarding/LoginView.dart';
+import '../singletone/FbAdmin.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -102,15 +103,10 @@ void onItemListClicked(int indice){
   }
 
   void descargaPosts() async {
-    CollectionReference<FbPost> reference = db.collection("Posts").withConverter(
-      fromFirestore: (snapshot, _) => FbPost.fromFirestore(snapshot, null),
-      toFirestore: (post, _) => post.toFirestore(),
-    );
-
-    QuerySnapshot<FbPost> querySnapshot = await reference.get();
+    List<FbPost> downloadedPosts = await FbAdmin.descargarPosts();
 
     setState(() {
-      posts.addAll(querySnapshot.docs.map((doc) => doc.data()).toList());
+      posts.addAll(downloadedPosts);
     });
   }
 
