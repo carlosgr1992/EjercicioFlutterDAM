@@ -40,4 +40,6 @@ class PlatformAdmin {
   bool get isMobile => _screenWidth < 600;
   bool get isTablet => _screenWidth >= 600 && _screenWidth < 1200;
   bool get isDesktop => _screenWidth >= 1200;
+
+  Size get screenSize => Size(_screenWidth, _screenHeight); //Es como un getter, con screenSize.width sabría la anchura por ejemplo
 }
