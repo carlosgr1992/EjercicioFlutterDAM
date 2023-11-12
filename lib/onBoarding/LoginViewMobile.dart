@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginViewMobile extends StatelessWidget {
@@ -25,7 +25,7 @@ class LoginViewMobile extends StatelessWidget {
           children: [
             SizedBox(height: 80),
             Text(
-              "Bienvenido al login Movil",
+              "Bienvenido al login Móvil",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -69,13 +69,13 @@ class LoginViewMobile extends StatelessWidget {
                 SizedBox(
                   height: 90,
                 ),
-                TextButton(
-                  onPressed: onClickAceptar,
+                ElevatedButton(
+                  onPressed: onClickSolicitarSMS,
                   style: ButtonStyle(
-                      side: MaterialStateProperty.all(
-                          BorderSide(color: Colors.amberAccent))),
+                    backgroundColor: MaterialStateProperty.all(Colors.amberAccent),
+                  ),
                   child: Text(
-                    "Aceptar",
+                    "Solicitar SMS",
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -90,10 +90,27 @@ class LoginViewMobile extends StatelessWidget {
     );
   }
 
-  void onClickAceptar(){
-
-    print("aceptado!");
-
+  void onClickSolicitarSMS() {
+    _startPhoneNumberVerification();
   }
 
+  Future<void> _startPhoneNumberVerification() async {
+    String phoneNumber = tecNumTelefono.text;
+    try {
+      await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+          verificationCompleted: (PhoneAuthCredential credential) {
+            FirebaseAuth.instance.signInWithCredential(credential);
+            Navigator.of(_context).popAndPushNamed("/homeView");
+          },
+        verificationFailed: (FirebaseAuthException e) {
+          print("Error de verificación: ${e.message}");
+        },
+        codeSent: (String verificationId, int? resendToken) {},
+        codeAutoRetrievalTimeout: (String verificationId) {},
+      );
+    } catch (e) {
+      print("Error al solicitar SMS: $e");
+    }
   }
+}
