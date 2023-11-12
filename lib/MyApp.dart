@@ -2,6 +2,7 @@ import 'package:ejercicio_flutter_dam/Main/HomeView.dart';
 import 'package:ejercicio_flutter_dam/Main/HomeViewWeb.dart';
 import 'package:ejercicio_flutter_dam/Main/PostView.dart';
 import 'package:ejercicio_flutter_dam/onBoarding/LoginView.dart';
+import 'package:ejercicio_flutter_dam/onBoarding/LoginViewMobile.dart';
 import 'package:ejercicio_flutter_dam/onBoarding/PerfilDataView.dart';
 import 'package:ejercicio_flutter_dam/onBoarding/RegisterView.dart';
 import 'package:ejercicio_flutter_dam/singletone/PlatformAdmin.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       return MaterialApp(
         title: "MyApp",
         routes: {
-          "/loginView": (context) => LoginView(),
+          "/loginView": (context) => LoginViewMobile(),
           "/registerView": (context) => RegisterView(),
           "/splashView": (context) => SplashApp(),
           "/homeView": (context) => HomeView(),
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
           "/postView": (context) => PostView(),
           "/postCreateView": (context) => PostCreateView(),
         },
-        initialRoute: "/splashView",
+        initialRoute: "/loginView",
       );
     } else {
       return MaterialApp(
