@@ -103,6 +103,7 @@ void onItemListClicked(int indice){
   }
 
   void descargaPosts() async {
+    posts.clear();
     List<FbPost> downloadedPosts = await FbAdmin.descargarPosts();
 
     setState(() {
@@ -110,9 +111,34 @@ void onItemListClicked(int indice){
     });
   }
 
+
+  void descargaPostsV2() {
+
+    CollectionReference<FbPost> ref=db.collection("Posts")
+        .withConverter(fromFirestore: FbPost.fromFirestore,
+      toFirestore: (FbPost post, _) => post.toFirestore(),);
+
+    ref.snapshots().listen(datosDescargados, onError: descargaPostError,);
+
+  }
+
+  void datosDescargados(QuerySnapshot<FbPost> postsDescargados){
+    posts.clear();
+
+    for(int i=0;i<postsDescargados.docs.length;i++){
+      setState(() {
+        posts.add(postsDescargados.docs[i].data());
+      });
+    }
+  }
+
+  void descargaPostError(error){
+    print("Listen failed: $error");
+  }
+
   void initState() {
     super.initState();
     // Llama a la función que obtiene los datos al cargar la vista.
-    descargaPosts();
+    descargaPostsV2();
   }
 }
